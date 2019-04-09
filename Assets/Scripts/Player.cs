@@ -1,11 +1,10 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MechAndSandals
 {
-    public class Player : MonoBehaviour
+    public class Player
     {
         public string Name { get; set; }
         public double Health { get; set; }
@@ -13,25 +12,15 @@ namespace MechAndSandals
         public double Heat { get; set; }
         public double Armour { get; set; }
         public bool IsOverheated { get; set; }
-        public IWeapon Weapon { get; set; }
+        public List<IWeapon> Weapons { get; set; }
+        public IWeapon SelectedWeapon { get; set; }
         public double Cooldown { get; set; }
         public IAbility FireThrower { get; set; }
         public int Coins { get; set; }
 
-        public Player()
+        public Player(string name, List<IWeapon> weaponList)
         {
-            Weapon = new Weapons.Gun(0, "default");
-            Name = "default";
-            Health = 100;
-            Heat = 0;
-            Armour = 0;
-            IsOverheated = false;
-            Cooldown = 20;
-        }
-
-        public Player(string name, IWeapon weapon)
-        {
-            Weapon = weapon;
+            Weapons = weaponList;
             Name = name;
             Health = 100;
             Heat = 0;
@@ -44,7 +33,7 @@ namespace MechAndSandals
         //Attackmethods
         public void QuickAttack(Player player)
         {
-            Weapon.QuickAttack(player);
+            SelectedWeapon.QuickAttack(player);
             Heat += 20;
 
             CheckIfPlayerIsOverheated();
@@ -52,7 +41,7 @@ namespace MechAndSandals
 
         public void NormalAttack(Player player)
         {
-            Weapon.NormalAttack(player);
+            SelectedWeapon.NormalAttack(player);
             Heat += 30;
 
             CheckIfPlayerIsOverheated();
@@ -60,7 +49,7 @@ namespace MechAndSandals
 
         public void HeavyAttack(Player player)
         {
-            Weapon.HeavyAttack(player);
+            SelectedWeapon.HeavyAttack(player);
             Heat += 45;
         }
 
@@ -89,7 +78,10 @@ namespace MechAndSandals
             {
                 IsOverheated = true;
             }
-
+            else
+            {
+                IsOverheated = false;
+            }
         }
 
     }
