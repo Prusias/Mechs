@@ -9,6 +9,7 @@ namespace MechAndSandals.Weapons
         private double _lazerDamage;
 
         public string Name { get; set; }
+        public string Damage { get { return _lazerDamage.ToString(); } }
 
         public Lazer(double damage, string name)
         {

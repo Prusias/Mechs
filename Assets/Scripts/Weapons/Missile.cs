@@ -9,6 +9,7 @@ namespace MechAndSandals.Weapons
         private double _missileDamage;
 
         public string Name { get; set;}
+        public string Damage { get { return _missileDamage.ToString(); } }
 
         public Missile(double damage, string name)
         {

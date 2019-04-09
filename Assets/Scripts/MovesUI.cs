@@ -25,7 +25,9 @@ public class ActionsUI : MonoBehaviour {
         foreach (IWeapon weapon in weapons)
         {
             GameObject button = Instantiate(buttonPrefab, weaponButtonParent.transform);
-            button.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(1));
+            button.GetComponentInChildren<Text>().text = weapon.Name;
+            button.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(count));
+            count++;
         }
   
     }

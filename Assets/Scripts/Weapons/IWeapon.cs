@@ -7,6 +7,7 @@ namespace MechAndSandals
     public interface IWeapon
     {
         string Name { get; set; }
+        string Damage { get; }
         void QuickAttack(Player player);
         void NormalAttack(Player player);
         void HeavyAttack(Player player);
