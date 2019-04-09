@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour {
+namespace MechAndSandals
+{
+    public class Controller : MonoBehaviour
+    {
+        public GameObject playerGameObject;
+        Player player;
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        // Use this for initialization
+        void Start()
+        {
+            player = playerGameObject.GetComponent<Player>();
+        }
 
-	}
-    
+        // Update is called once per frame
+        void Update()
+        {
+            player.Health--;
+        }
+
+    }
+
 }
