@@ -1,10 +1,12 @@
 ﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using MechAndSandals.Weapons;
 
 namespace MechAndSandals
 {
-    public class Player
+    public class Player : MonoBehaviour
     {
         public string Name { get; set; }
         public double Health { get; set; }
@@ -18,6 +20,19 @@ namespace MechAndSandals
         public IAbility FireThrower { get; set; }
         public int Coins { get; set; }
 
+        public Player()
+        {
+            Weapons = new List<IWeapon>();
+            Weapons.Add(new Gun(100, "GoodGun"));
+            Weapons.Add(new Lazer(100, "GoodLaser"));
+            Weapons.Add(new Missile(100, "GoodMissile"));
+            Name = "Default player";
+            Health = 100;
+            Heat = 0;
+            Armour = 0;
+            IsOverheated = false;
+            Cooldown = 20;
+        }
         public Player(string name, List<IWeapon> weaponList)
         {
             Weapons = weaponList;
