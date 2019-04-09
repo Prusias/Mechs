@@ -334,6 +334,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 1480049087097940, guid: e17bb4ab07e581d4aa3d1240f772bbf7,
     type: 2}
   weaponButtonParent: {fileID: 1129672399}
+  player: {fileID: 774943381}
 --- !u!1 &625156495
 GameObject:
   m_ObjectHideFlags: 0

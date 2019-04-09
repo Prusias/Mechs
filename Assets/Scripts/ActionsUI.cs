@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using MechAndSandals;
 using MechAndSandals.Weapons;
+using MechAndSandals.Abilities;
 
 public class ActionsUI : MonoBehaviour {
 
     public GameObject buttonPrefab;
     public GameObject weaponButtonParent;
+    public GameObject player;
     List<GameObject> weaponButtons;
     List<IWeapon> weapons;
+    List<IAbility> abilities;
 
 
     // Use this for initialization
@@ -20,7 +23,9 @@ public class ActionsUI : MonoBehaviour {
         weapons.Add(new Gun(100, "GoodGun"));
         weapons.Add(new Lazer(100, "GoodLaser"));
         weapons.Add(new Missile(100, "GoodMissile"));
-        
+        abilities = new List<IAbility>();
+        abilities.Add(new FireThrower(100));
+
         Transform transform = weaponButtonParent.transform;
 
         int count = 0;
@@ -56,14 +61,20 @@ public class ActionsUI : MonoBehaviour {
                 
             }
 
-
-            //GameObject button = Instantiate(buttonPrefab, weaponButtonParent.transform);
-            //button.transform.position = new Vector3(button.transform.position.x, button.transform.position.y + 25 * count, button.transform.position.z);
-            //button.GetComponentInChildren<Text>().text = weapon.Name + " Dmg: " + weapon.Damage;
-            //button.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(count));
             count++;
         }
-  
+
+        count = 0;
+        foreach (IAbility ability in abilities)
+        {
+            GameObject button = Instantiate(buttonPrefab, weaponButtonParent.transform);
+            button.transform.position = new Vector3(button.transform.position.x + 400, button.transform.position.y + 25 * count, button.transform.position.z);
+            button.GetComponent<RectTransform>().sizeDelta = new Vector2(120, 30);
+            button.GetComponentInChildren<Text>().text = ability.Name;
+            button.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(count, 4));
+            count++;
+        }
+
     }
 	
 	// Update is called once per frame
@@ -76,7 +87,11 @@ public class ActionsUI : MonoBehaviour {
 
     void ButtonClicked(int buttonNo, int actiontype = 0)
     {
-
+        if (actiontype == 4)
+        {
+            IAbility ability = abilities[0];
+            ability.Cast(player.GetComponent<Player>());
+        }
 
 
 

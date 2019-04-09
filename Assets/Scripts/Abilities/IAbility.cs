@@ -4,8 +4,9 @@ using System.Text;
 
 namespace MechAndSandals
 {
-    public interface IAbility
-    {
+    public interface IAbility { 
+        
+        string Name { get; }
         void Cast(Player player);
         void UpdateDamage(double damageToBeAddedOrSubtracted);
     }

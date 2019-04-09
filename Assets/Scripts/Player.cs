@@ -17,8 +17,13 @@ namespace MechAndSandals
         public List<IWeapon> Weapons { get; set; }
         public IWeapon SelectedWeapon { get; set; }
         public double Cooldown { get; set; }
-        public IAbility FireThrower { get; set; }
+        public List<IAbility> Abilities { get; set; }
         public int Coins { get; set; }
+
+        public void Update()
+        {
+            Debug.Log(Heat);
+        }
 
         public Player()
         {
@@ -26,6 +31,8 @@ namespace MechAndSandals
             Weapons.Add(new Gun(100, "GoodGun"));
             Weapons.Add(new Lazer(100, "GoodLaser"));
             Weapons.Add(new Missile(100, "GoodMissile"));
+            Abilities = new List<IAbility>();
+            Abilities.Add(new Abilities.FireThrower(100));
             Name = "Default player";
             Health = 100;
             Heat = 0;
@@ -33,9 +40,10 @@ namespace MechAndSandals
             IsOverheated = false;
             Cooldown = 20;
         }
-        public Player(string name, List<IWeapon> weaponList)
+        public Player(string name, List<IWeapon> weaponList, List<IAbility> abilities)
         {
             Weapons = weaponList;
+            Abilities = abilities;
             Name = name;
             Health = 100;
             Heat = 0;
@@ -69,9 +77,9 @@ namespace MechAndSandals
         }
 
         //Abilities
-        public void CastFireThrower(Player player)
+        public void CastAbility(Player player, IAbility ability)
         {
-            FireThrower.Cast(player);
+            ability.Cast(player);
         }
 
         public void CastCoolDown()
