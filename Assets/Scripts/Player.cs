@@ -16,7 +16,6 @@ namespace MechAndSandals
         public bool IsOverheated { get; set; }
         public List<IWeapon> Weapons { get; set; }
         public IWeapon SelectedWeapon { get; set; }
-        public double Cooldown { get; set; }
         public List<IAbility> Abilities { get; set; }
         public int Coins { get; set; }
 
@@ -33,12 +32,13 @@ namespace MechAndSandals
             Weapons.Add(new Missile(100, "GoodMissile"));
             Abilities = new List<IAbility>();
             Abilities.Add(new Abilities.FireThrower(100));
+            Abilities.Add(new Abilities.Cooldown());
             Name = "Default player";
             Health = 100;
             Heat = 0;
             Armour = 0;
             IsOverheated = false;
-            Cooldown = 20;
+           
         }
         public Player(string name, List<IWeapon> weaponList, List<IAbility> abilities)
         {
@@ -49,7 +49,6 @@ namespace MechAndSandals
             Heat = 0;
             Armour = 0;
             IsOverheated = false;
-            Cooldown = 20;
         }
 
 
@@ -74,24 +73,23 @@ namespace MechAndSandals
         {
             SelectedWeapon.HeavyAttack(player);
             Heat += 45;
+
+            CheckIfPlayerIsOverheated();
         }
 
         //Abilities
         public void CastAbility(Player player, IAbility ability)
         {
             ability.Cast(player);
+            CheckCoolDown();
         }
 
-        public void CastCoolDown()
+        private void CheckCoolDown()
         {
-            if(Heat <= Cooldown)
+            if(Heat < 0)
             {
-                Cooldown = 0;
-                return;
+                Heat = 0;
             }
-
-            Heat -= Cooldown;
-            CheckIfPlayerIsOverheated();
         }
 
         //Checking

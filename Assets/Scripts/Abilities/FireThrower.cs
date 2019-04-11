@@ -12,7 +12,6 @@ namespace MechAndSandals.Abilities
 
         public FireThrower(double damage)
         {
-
             _heathDamage = damage;
         }
         public void Cast(Player player)
