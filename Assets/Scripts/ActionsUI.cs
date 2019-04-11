@@ -90,6 +90,14 @@ public class ActionsUI : MonoBehaviour {
 
     void ButtonClicked(int buttonNo, int actiontype = 0)
     {
+        if (actiontype >= 1 && actiontype <= 3 )
+        {
+            IWeapon weapon = weapons[buttonNo];
+            Player pl = player.GetComponent<Player>();
+            controller.Attack(weapon, actiontype, pl);
+        }
+
+
         if (actiontype == 4)
         {
             IAbility ability = abilities[0];
