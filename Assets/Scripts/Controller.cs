@@ -25,7 +25,11 @@ namespace MechAndSandals
             player.Health--;
         }
 
-        public void Cast(IAbility ability, Player target, bool endturn = true)
+        public void Cast(IAbility ability, Player player, bool endturn = true)
+        {
+
+        }
+        public void Attack(IWeapon weapon, int weaponType, Player player, bool endturn = true)
         {
 
         }
