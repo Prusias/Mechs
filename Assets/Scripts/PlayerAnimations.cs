@@ -86,7 +86,7 @@ public class PlayerAnimations : MonoBehaviour {
         }
         if (isAttacking)
         {
-            if (animationCount < 2)
+            if (animationCount < 6)
             {
                 animationCount += 1f * Time.deltaTime;
             }
@@ -97,7 +97,7 @@ public class PlayerAnimations : MonoBehaviour {
                 animator.SetBool("Attack", false);
             }
         }
-        if (!isInAnimation)
+        if (!isInAnimation && !willAttack && !isAttacking)
         {
             if (shouldReset)
             {

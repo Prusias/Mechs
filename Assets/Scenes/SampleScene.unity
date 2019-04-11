@@ -526,7 +526,10 @@ MonoBehaviour:
   playerGameObject: {fileID: 894446581}
   AIplayerGameObject: {fileID: 774943381}
   textInfo: {fileID: 458853869}
+  player: {fileID: 0}
+  AIplayer: {fileID: 0}
   currentPlayer: {fileID: 0}
+  currentAnimationTime: 0
 --- !u!4 &578937907
 Transform:
   m_ObjectHideFlags: 0
@@ -554,8 +557,9 @@ MonoBehaviour:
   buttonPrefab: {fileID: 1480049087097940, guid: e17bb4ab07e581d4aa3d1240f772bbf7,
     type: 2}
   weaponButtonParent: {fileID: 1129672399}
-  player: {fileID: 774943381}
+  player: {fileID: 894446581}
   controllerObject: {fileID: 578937903}
+  controller: {fileID: 0}
 --- !u!114 &578937909
 MonoBehaviour:
   m_ObjectHideFlags: 0

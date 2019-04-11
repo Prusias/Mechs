@@ -13,25 +13,26 @@ namespace MechAndSandals
         public GameObject textInfo;
         PlayerAnimations playerAnimations;
         PlayerAnimations AIAnimations;
-        Player player;
-        Player AIplayer;
+        public Player player;
+        public Player AIplayer;
         public Player currentPlayer;
         public bool HasWinner { get; set; }
         public Player Winner { get; set; }
+
+        public float currentAnimationTime = 0;
+        private bool isAttacking = false;
+        private bool justAttacked = false;
+        private AttackObject attackObject;
 
         // Use this for initialization
         void Start()
         {
             player = playerGameObject.GetComponent<Player>();
-            player = new Player(
-
-            );
-            AIplayer = AIplayerGameObject.GetComponent<Player>();
-            AIplayer = new Player(
-
-            );
-            textInfo.GetComponent<Text>().text = "Your Turn";
+           
             currentPlayer = player;
+            AIplayer = AIplayerGameObject.GetComponent<Player>();
+            textInfo.GetComponent<Text>().text = "Your Turn";
+            
             HasWinner = false;
 
             playerAnimations = playerGameObject.GetComponent<PlayerAnimations>();
@@ -41,9 +42,18 @@ namespace MechAndSandals
         // Update is called once per frame
         void Update()
         {
+            if (currentAnimationTime > 0f)
+            {
+                currentAnimationTime += -1f * Time.deltaTime;
+            }
+            if (isAttacking && !justAttacked)
+            {
+                Attack(attackObject.weapon, attackObject.weaponType, attackObject.player, attackObject.endturn);
+            } else
+            {
+                justAttacked = false;
+            }
             
-
-
         }
 
         public void Cast(IAbility ability, Player player, bool endturn = true)
@@ -63,38 +73,76 @@ namespace MechAndSandals
 
         public void Attack(IWeapon weapon, int weaponType, Player player, bool endturn = true)
         {
-
-            if (CurrentPlayerIsOverheated())
+            if (isAttacking == false)
             {
-                currentPlayer.Heat -= 20;
-                EndTurn();
+                attackObject = new AttackObject(weapon, weaponType, player, endturn);
+                isAttacking = true;
+                currentAnimationTime = 7f;
+
+                if (currentPlayer = player)
+                {
+                    playerAnimations.AttackRight();
+                    playerAnimations.Reset();
+                }
+                else
+                {
+
+                    playerAnimations.AttackLeft();
+                    playerAnimations.Reset();
+                }
+            } else
+            {
+          
+                if (currentAnimationTime < .5f)
+                {
+                    isAttacking = false;
+                    if (CurrentPlayerIsOverheated())
+                    {
+                        currentPlayer.Heat -= 20;
+                        EndTurn();
+                    }
+
+                    if (weaponType == 1)
+                    {
+                        player.SelectedWeapon = player.Weapons[0];
+                        player.QuickAttack(GetOpponent());
+                    }
+                    else if (weaponType == 2)
+                    {
+                        player.SelectedWeapon = player.Weapons[1];
+                        player.NormalAttack(GetOpponent());
+                    }
+                    else if (weaponType == 3)
+                    {
+                        player.SelectedWeapon = player.Weapons[2];
+                        player.HeavyAttack(GetOpponent());
+                    }
+
+                    
+                    CheckForWinner();
+                    EndTurn();
+                }
             }
-
-            if (weaponType == 1)
-            {
-                player.QuickAttack(GetOpponent());
-            } else if (weaponType == 2)
-            {
-                player.NormalAttack(GetOpponent());
-            } else if (weaponType == 3)
-            {
-                player.HeavyAttack(GetOpponent());
-            }
-
-            CheckForWinner();
-            EndTurn(); 
+           
         }
 
         private void EndTurn()
         {
-            currentPlayer = GetOpponent();
-            if (currentPlayer == player)
+            if (currentAnimationTime < 1f)
             {
-                textInfo.GetComponent<Text>().text = "Your Turn";
-            } else
-            {
-                textInfo.GetComponent<Text>().text = "Opponents Turn";
+                currentPlayer = GetOpponent();
+                if (currentPlayer == player)
+                {
+                    textInfo.GetComponent<Text>().text = "Your Turn";
+                }
+                else
+                {
+                    textInfo.GetComponent<Text>().text = "Opponents Turn";
+                }
+                
             }
+
+            
         }
 
         public Player GetOpponent()
@@ -146,6 +194,23 @@ namespace MechAndSandals
                 Debug.Log("Game has a winner");
             }
         }
+
+        private class AttackObject
+        {
+            public IWeapon weapon;
+            public int weaponType;
+            public Player player;
+            public bool endturn = true;
+
+            public AttackObject(IWeapon weapon, int weaponType, Player player, bool endturn = true)
+            {
+                this.weapon = weapon;
+                this.weaponType = weaponType;
+                this.player = player;
+                this.endturn = endturn;
+            }
+        }
     }
 
+   
 }

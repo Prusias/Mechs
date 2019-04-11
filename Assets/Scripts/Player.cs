@@ -21,24 +21,25 @@ namespace MechAndSandals
 
         public void Update()
         {
-            Debug.Log(Heat);
+            //Debug.Log(Heat);
         }
 
         public Player()
         {
             Weapons = new List<IWeapon>();
-            Weapons.Add(new Gun(100, "GoodGun"));
-            Weapons.Add(new Lazer(100, "GoodLaser"));
-            Weapons.Add(new Missile(100, "GoodMissile"));
+            Weapons.Add(new Gun(30, "GoodGun"));
+            Weapons.Add(new Lazer(50, "GoodLaser"));
+            Weapons.Add(new Missile(90, "GoodMissile"));
             Abilities = new List<IAbility>();
             Abilities.Add(new Abilities.FireThrower(100));
             Abilities.Add(new Abilities.Cooldown());
             Name = "Default player";
             Health = 100;
             Heat = 0;
-            Armour = 0;
+            Armour = 50;
             IsOverheated = false;
-           
+
+
         }
         public Player(string name, List<IWeapon> weaponList, List<IAbility> abilities)
         {
@@ -104,6 +105,7 @@ namespace MechAndSandals
                 IsOverheated = false;
             }
         }
+
 
     }
 }

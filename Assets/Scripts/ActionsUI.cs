@@ -12,7 +12,7 @@ public class ActionsUI : MonoBehaviour {
     public GameObject weaponButtonParent;
     public GameObject player;
     public GameObject controllerObject;
-    private Controller controller;
+    public Controller controller;
     List<GameObject> weaponButtons;
     List<IWeapon> weapons;
     List<IAbility> abilities;
@@ -27,6 +27,7 @@ public class ActionsUI : MonoBehaviour {
         weapons.Add(new Missile(100, "GoodMissile"));
         abilities = new List<IAbility>();
         abilities.Add(new FireThrower(100));
+        abilities.Add(new Cooldown());
 
         Transform transform = weaponButtonParent.transform;
 
@@ -34,7 +35,7 @@ public class ActionsUI : MonoBehaviour {
         foreach (IWeapon weapon in weapons)
         {
             GameObject label = Instantiate(buttonPrefab, weaponButtonParent.transform);
-            label.transform.position = new Vector3(label.transform.position.x, label.transform.position.y + 25 * count, label.transform.position.z);
+            label.transform.position = new Vector3(label.transform.position.x, label.transform.position.y + 40 * count, label.transform.position.z);
             label.GetComponent<RectTransform>().sizeDelta = new Vector2(160, 30);
             double damage = float.Parse(weapon.Damage);
             label.GetComponentInChildren<Text>().text = weapon.Name + " DMG: " + damage;
@@ -43,7 +44,7 @@ public class ActionsUI : MonoBehaviour {
             for (int  i = 0;  i < 3;  i++)
             {
                 GameObject button = Instantiate(buttonPrefab, weaponButtonParent.transform);
-                button.transform.position = new Vector3(button.transform.position.x + 45 * i + 90, button.transform.position.y + 25 * count, button.transform.position.z);
+                button.transform.position = new Vector3(button.transform.position.x + 80 * i + 160, button.transform.position.y + 40 * count, button.transform.position.z);
                 button.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 30);
                
 
@@ -70,7 +71,7 @@ public class ActionsUI : MonoBehaviour {
         foreach (IAbility ability in abilities)
         {
             GameObject button = Instantiate(buttonPrefab, weaponButtonParent.transform);
-            button.transform.position = new Vector3(button.transform.position.x + 400, button.transform.position.y + 25 * count, button.transform.position.z);
+            button.transform.position = new Vector3(button.transform.position.x + 500, button.transform.position.y + 40 * count, button.transform.position.z);
             button.GetComponent<RectTransform>().sizeDelta = new Vector2(120, 30);
             button.GetComponentInChildren<Text>().text = ability.Name;
             button.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(count, 4));
@@ -89,20 +90,23 @@ public class ActionsUI : MonoBehaviour {
 
     void ButtonClicked(int buttonNo, int actiontype = 0)
     {
+        Debug.Log("Button clicked = " + buttonNo);
+
+        Player pl = player.GetComponent<Player>();
+
         // Check if it's the players turn
-        if (controller.currentPlayer == player)
+        if (controller.currentPlayer == pl)
         {
             if (actiontype >= 1 && actiontype <= 3)
             {
                 IWeapon weapon = weapons[buttonNo];
-                Player pl = player.GetComponent<Player>();
+               
                 controller.Attack(weapon, actiontype, pl);
             }
 
             if (actiontype == 4)
             {
                 IAbility ability = abilities[0];
-                Player pl = player.GetComponent<Player>();
                 controller.Cast(ability, pl);
             }
             if (actiontype == 5)
@@ -115,6 +119,6 @@ public class ActionsUI : MonoBehaviour {
 
 
         //Output this to console when the Button3 is clicked
-        Debug.Log("Button clicked = " + buttonNo);
+       
     }
 }
