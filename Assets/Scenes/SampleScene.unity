@@ -340,7 +340,6 @@ GameObject:
   - component: {fileID: 578937904}
   - component: {fileID: 578937908}
   - component: {fileID: 578937910}
-  - component: {fileID: 578937909}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -384,7 +383,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGameObject: {fileID: 894446581}
+  AIplayerGameObject: {fileID: 774943381}
   textInfo: {fileID: 458853869}
+  currentPlayer: {fileID: 0}
 --- !u!4 &578937907
 Transform:
   m_ObjectHideFlags: 0
@@ -414,19 +415,6 @@ MonoBehaviour:
   weaponButtonParent: {fileID: 1129672399}
   player: {fileID: 774943381}
   controllerObject: {fileID: 578937903}
---- !u!114 &578937909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578937903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3e57b6ee7309b4caf695c784ef57e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerGameObject: {fileID: 774943381}
-  textInfo: {fileID: 458853869}
 --- !u!114 &578937910
 MonoBehaviour:
   m_ObjectHideFlags: 0
