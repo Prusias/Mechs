@@ -11,6 +11,8 @@ public class ActionsUI : MonoBehaviour {
     public GameObject buttonPrefab;
     public GameObject weaponButtonParent;
     public GameObject player;
+    public GameObject controllerObject;
+    private Controller controller;
     List<GameObject> weaponButtons;
     List<IWeapon> weapons;
     List<IAbility> abilities;
@@ -19,6 +21,7 @@ public class ActionsUI : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        controller = controllerObject.GetComponent<Controller>();
         weapons = new List<IWeapon>();
         weapons.Add(new Gun(100, "GoodGun"));
         weapons.Add(new Lazer(100, "GoodLaser"));
@@ -90,7 +93,8 @@ public class ActionsUI : MonoBehaviour {
         if (actiontype == 4)
         {
             IAbility ability = abilities[0];
-            ability.Cast(player.GetComponent<Player>());
+            Player pl = player.GetComponent<Player>());
+            controller.Cast(ability, pl);
         }
 
 
