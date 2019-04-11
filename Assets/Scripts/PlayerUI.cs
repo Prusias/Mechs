@@ -6,6 +6,8 @@ public class PlayerUI : MonoBehaviour {
 
     public GameObject playerGameObject;
     public GameObject healthBar;
+    public GameObject armourBar;
+    public GameObject heatBar;
     Player player;
 
 
@@ -19,16 +21,31 @@ public class PlayerUI : MonoBehaviour {
         if (player != null)
         {
             double health = player.Health;
-            float width = (float)health * 4f;
-   
+            float healthWidth = (float)health * 4f;
+
             var healthBarTransform = healthBar.transform as RectTransform;
-            healthBarTransform.sizeDelta = new Vector2(width, healthBarTransform.sizeDelta.y);
+            healthBarTransform.sizeDelta = new Vector2(healthWidth, healthBarTransform.sizeDelta.y);
              
-            if (health < 50)
+            if (health < 25)
             {
                 var image = healthBar.GetComponent<Image>();
                 image.color = new Color(255f, 0, 0);
             }
+
+            double armour = player.Armour;
+            float armourWidth = (float)armour * 4f;
+
+            var armourTransform = armourBar.transform as RectTransform;
+            armourTransform.sizeDelta = new Vector2(armourWidth, armourTransform.sizeDelta.y);
+
+            double heat = player.Heat;
+            float heatWidth = (float)heat * 4f;
+
+            var heatTransform = heatBar.transform as RectTransform;
+            heatTransform.sizeDelta = new Vector2(heatWidth, heatTransform.sizeDelta.y);
+
+
+
         }
 	}
 
