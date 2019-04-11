@@ -14,10 +14,10 @@ namespace MechAndSandals
         PlayerAnimations playerAnimations;
         PlayerAnimations AIAnimations;
         Player player;
-        Player AIplayer;
+        AIPlayer AIplayer;
         public Player currentPlayer;
         public bool HasWinner { get; set; }
-        public Player Winner { get; set; }
+        public string Winner { get; set; }
 
         // Use this for initialization
         void Start()
@@ -26,8 +26,8 @@ namespace MechAndSandals
             player = new Player(
 
             );
-            AIplayer = AIplayerGameObject.GetComponent<Player>();
-            AIplayer = new Player(
+            AIplayer = AIplayerGameObject.GetComponent<AIPlayer>();
+            AIplayer = new AIPlayer(
 
             );
             textInfo.GetComponent<Text>().text = "Your Turn";
@@ -133,17 +133,6 @@ namespace MechAndSandals
             {
                 HasWinner = true;
                 Winner = currentPlayer;
-               
-                if (Winner == player)
-                {
-                    playerAnimations.Die();
-                    this.GetComponent<EndscreenUI>().Display(true);
-                } else
-                {
-                    AIAnimations.Die();
-                    this.GetComponent<EndscreenUI>().Display(false);
-                }
-                
                 Debug.Log("Game has a winner");
             }
         }
