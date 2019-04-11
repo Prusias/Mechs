@@ -93,7 +93,7 @@ public class ActionsUI : MonoBehaviour {
         if (actiontype == 4)
         {
             IAbility ability = abilities[0];
-            Player pl = player.GetComponent<Player>());
+            Player pl = player.GetComponent<Player>();
             controller.Cast(ability, pl);
         }
 
