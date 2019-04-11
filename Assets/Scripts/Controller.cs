@@ -11,6 +11,7 @@ namespace MechAndSandals
         public GameObject playerGameObject;
         public GameObject AIplayerGameObject;
         public GameObject textInfo;
+        public GameObject endScreenGameObject;
         Player player;
         Player AIplayer;
         public Player currentPlayer; 

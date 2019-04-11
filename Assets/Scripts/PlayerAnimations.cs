@@ -8,6 +8,7 @@ public class PlayerAnimations : MonoBehaviour {
     public Animator animator;
     public float runningSpeed;
     private bool isRunningRight;
+    private bool isDieing;
     private bool shouldReset;
     private bool isInAnimation;
     private float animationCount;
@@ -36,6 +37,17 @@ public class PlayerAnimations : MonoBehaviour {
                 animator.SetBool("Run", false);
             }
         }
+        if (isDieing)
+        {
+            if (animationCount < 10)
+            {
+                animationCount += 10f * Time.deltaTime;
+            } else
+            {
+                isDieing = false;
+                isInAnimation = false;
+            }
+        } 
         if (!isInAnimation)
         {
             if (shouldReset)
@@ -52,6 +64,13 @@ public class PlayerAnimations : MonoBehaviour {
         isRunningRight = true;
         isInAnimation = true;
         animator.SetBool("Run", true);
+    }
+    public void Die()
+    {
+        animationCount = 0;
+        isDieing = true;
+        isInAnimation = true;
+        animator.SetBool("Death", true);
     }
     public void Reset()
     {

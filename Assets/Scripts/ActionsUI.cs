@@ -17,7 +17,6 @@ public class ActionsUI : MonoBehaviour {
     List<IWeapon> weapons;
     List<IAbility> abilities;
 
-
     // Use this for initialization
     void Start()
     {
