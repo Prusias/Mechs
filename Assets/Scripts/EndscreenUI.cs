@@ -6,16 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class EndscreenUI : MonoBehaviour {
 
-    public GameObject endscreenGameObject;
+    public GameObject ActionsObject;
+    public GameObject YourTurn;
     public GameObject endscreenText;
     public GameObject endscreenButton;
-    public GameObject endscreenBackground;
 
 	// Use this for initialization
 	void Start () {
         
         endscreenButton.GetComponentInChildren<Button>().onClick.AddListener(() => Restart());
-
     }
 	
 	// Update is called once per frame
@@ -33,9 +32,11 @@ public class EndscreenUI : MonoBehaviour {
         {
             endscreenText.GetComponent<Text>().text = "You Loose!";
         }
+        endscreenText.GetComponent<Text>().enabled = true;
         endscreenButton.GetComponent<Image>().enabled = true;
-        endscreenBackground.GetComponent<Image>().enabled = true;
         endscreenButton.GetComponentInChildren<Text>().enabled = true;
+        Destroy(ActionsObject);
+        Destroy(YourTurn);
     }
 
     public void Restart()

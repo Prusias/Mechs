@@ -18,8 +18,8 @@ public class PlayerAnimations : MonoBehaviour {
 	void Start () {
         animator = GetComponentInParent<Animator>();
         defaultPosition = new Vector2(this.transform.position.x, this.transform.position.y);
-        RunRight();
-        Reset();
+        //RunRight();
+        //Reset();
     }
 	
 	// Update is called once per frame
