@@ -38,13 +38,7 @@ namespace MechAndSandals.Weapons
                 player.Armour -= damage;
                 return;
             }
-
-            if (PlayerHasEnoughArmour(player, damage))
-            {
-                player.Armour -= damage;
-                return;
-            }
-
+           
             if (player.Armour > 0)
             {
                 double remainingDamage = damage - player.Armour;
