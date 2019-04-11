@@ -72,6 +72,7 @@ namespace MechAndSandals
             } else if (weaponType == 2)
             {
                 player.NormalAttack(GetOpponent());
+                FindObjectOfType<AudioManager>().Play("MelePunch");
             } else if (weaponType == 3)
             {
                 player.HeavyAttack(GetOpponent());
