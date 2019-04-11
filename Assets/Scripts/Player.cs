@@ -6,7 +6,7 @@ using MechAndSandals.Weapons;
 
 namespace MechAndSandals
 {
-    public class Player : MonoBehaviour
+    public class Player : IPlayer
     {
         public string Name { get; set; }
         public double Health { get; set; }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MechAndSandals.Weapons;
 
 namespace MechAndSandals
 {
-    public class AIPlayer
+    public class AIPlayer : IPlayer
     {
         public string Name { get; set; }
         public double Health { get; set; }
@@ -19,42 +20,55 @@ namespace MechAndSandals
         public string[] DifficultyList = { "Easy", "Medium", "Hard", "Insane", "Ely" };
         public int ChosenDifficulty { get; set; }
 
+        public AIPlayer()
+        {
+            Weapons = new List<IWeapon>();
+            Weapons.Add(new Gun(100, "GoodGun"));
+            Weapons.Add(new Lazer(100, "GoodLaser"));
+            Weapons.Add(new Missile(100, "GoodMissile"));
+            Name = "CPU";
+            Health = 100;
+            Heat = 0;
+            Armour = 25;
+            Cooldown = 20;
+        }
 
-        public AIPlayer(List<IWeapon> weaponList, int difficulty)
+        public AIPlayer(List<IWeapon> weaponList/*, int difficulty*/)
         {
 
-            ChosenDifficulty = difficulty;
+            //ChosenDifficulty = difficulty;
             Weapons = weaponList;
             Name = "CPU";
             Health = 100;
             Heat = 0;
-            IsOverheated = false;
+            Armour = 50;
+            Cooldown = 20;
 
-            if (ChosenDifficulty == 0)
-            {
-                Armour = 0;
-                Cooldown = 10;
-            }
-            if (ChosenDifficulty == 1)
-            {
-                Armour = 30;
-                Cooldown = 20;
-            }
-            if (ChosenDifficulty == 2)
-            {
-                Armour = 60;
-                Cooldown = 25;
-            }
-            if (ChosenDifficulty == 3)
-            {
-                Armour = 90;
-                Cooldown = 30;
-            }
-            if (ChosenDifficulty == 4)
-            {
-                Armour = 120;
-                Cooldown = 35;
-            }
+            //chosen difficulty affects armor and cooldown rate of the CPU 
+            //if (ChosenDifficulty == 0)
+            //{
+            //    Armour = 0;
+            //    Cooldown = 10;
+            //}
+            //if (ChosenDifficulty == 1)
+            //{
+            //    
+            //}
+            //if (ChosenDifficulty == 2)
+            //{
+            //    Armour = 60;
+            //    Cooldown = 25;
+            //}
+            //if (ChosenDifficulty == 3)
+            //{
+            //    Armour = 90;
+            //    Cooldown = 30;
+            //}
+            //if (ChosenDifficulty == 4)
+            //{
+            //    Armour = 120;
+            //    Cooldown = 35;
+            //}
         }
 
 
