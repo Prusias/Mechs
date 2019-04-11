@@ -8,6 +8,7 @@ namespace MechAndSandals.Weapons
     {
         private double _gunDamage;
         public string Name { get; set; }
+        public string Damage { get { return _gunDamage.ToString(); } }
 
         public Gun(double damage, string name)
         {

@@ -1,10 +1,12 @@
 ﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using MechAndSandals.Weapons;
 
 namespace MechAndSandals
 {
-    public class Player
+    public class Player : MonoBehaviour
     {
         public string Name { get; set; }
         public double Health { get; set; }
@@ -14,19 +16,39 @@ namespace MechAndSandals
         public bool IsOverheated { get; set; }
         public List<IWeapon> Weapons { get; set; }
         public IWeapon SelectedWeapon { get; set; }
-        public double Cooldown { get; set; }
-        public IAbility FireThrower { get; set; }
+        public List<IAbility> Abilities { get; set; }
         public int Coins { get; set; }
 
-        public Player(string name, List<IWeapon> weaponList)
+        public void Update()
+        {
+            Debug.Log(Heat);
+        }
+
+        public Player()
+        {
+            Weapons = new List<IWeapon>();
+            Weapons.Add(new Gun(100, "GoodGun"));
+            Weapons.Add(new Lazer(100, "GoodLaser"));
+            Weapons.Add(new Missile(100, "GoodMissile"));
+            Abilities = new List<IAbility>();
+            Abilities.Add(new Abilities.FireThrower(100));
+            Abilities.Add(new Abilities.Cooldown());
+            Name = "Default player";
+            Health = 100;
+            Heat = 0;
+            Armour = 0;
+            IsOverheated = false;
+           
+        }
+        public Player(string name, List<IWeapon> weaponList, List<IAbility> abilities)
         {
             Weapons = weaponList;
+            Abilities = abilities;
             Name = name;
             Health = 100;
             Heat = 0;
             Armour = 0;
             IsOverheated = false;
-            Cooldown = 20;
         }
 
 
@@ -51,24 +73,23 @@ namespace MechAndSandals
         {
             SelectedWeapon.HeavyAttack(player);
             Heat += 45;
+
+            CheckIfPlayerIsOverheated();
         }
 
         //Abilities
-        public void CastFireThrower(Player player)
+        public void CastAbility(Player player, IAbility ability)
         {
-            FireThrower.Cast(player);
+            ability.Cast(player);
+            CheckCoolDown();
         }
 
-        public void CastCoolDown()
+        private void CheckCoolDown()
         {
-            if(Heat <= Cooldown)
+            if(Heat < 0)
             {
-                Cooldown = 0;
-                return;
+                Heat = 0;
             }
-
-            Heat -= Cooldown;
-            CheckIfPlayerIsOverheated();
         }
 
         //Checking

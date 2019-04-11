@@ -8,6 +8,8 @@ namespace MechAndSandals.Abilities
     {
         private double _heathDamage;
 
+        public string Name { get { return "FireThrower"; } }
+
         public FireThrower(double damage)
         {
             _heathDamage = damage;
