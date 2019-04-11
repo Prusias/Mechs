@@ -37,7 +37,7 @@ public class AudioManager : MonoBehaviour {
     {
         Play("Background");
         Play("BackgroundAdd");
-        Play("StartGo");
+        Play("Go");
     }
 
     public void Play(string name)
