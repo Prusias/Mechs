@@ -27,7 +27,7 @@ namespace MechAndSandals
 
         public void Cast(IAbility ability, Player target, bool endturn = true)
         {
-
+            ability.Cast(player);
         }
     }
 
