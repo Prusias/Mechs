@@ -1,60 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MechAndSandals.Weapons;
 
 namespace MechAndSandals
 {
-    public class AIPlayer
+    public class AIPlayer : Player
     {
-        public string Name { get; set; }
-        public double Health { get; set; }
-        //Heat represents mana, once a player overheats he cannot attack that turn
-        public double Heat { get; set; }
-        public double Armour { get; set; }
-        public bool IsOverheated { get; set; }
-        public List<IWeapon> Weapons { get; set; }
-        public IWeapon SelectedWeapon { get; set; }
-        public double Cooldown { get; set; }
-        public IAbility FireThrower { get; set; }
+        
         public string[] DifficultyList = { "Easy", "Medium", "Hard", "Insane", "Ely" };
         public int ChosenDifficulty { get; set; }
 
+        public AIPlayer()
+        {
+           
+            Name = "CPU";
+        }
 
-        public AIPlayer(List<IWeapon> weaponList, int difficulty)
+        public AIPlayer(List<IWeapon> weaponList/*, int difficulty*/)
         {
 
-            ChosenDifficulty = difficulty;
+            //ChosenDifficulty = difficulty;
             Weapons = weaponList;
             Name = "CPU";
             Health = 100;
             Heat = 0;
-            IsOverheated = false;
+            Armour = 50;
 
-            if (ChosenDifficulty == 0)
-            {
-                Armour = 0;
-                Cooldown = 10;
-            }
-            if (ChosenDifficulty == 1)
-            {
-                Armour = 30;
-                Cooldown = 20;
-            }
-            if (ChosenDifficulty == 2)
-            {
-                Armour = 60;
-                Cooldown = 25;
-            }
-            if (ChosenDifficulty == 3)
-            {
-                Armour = 90;
-                Cooldown = 30;
-            }
-            if (ChosenDifficulty == 4)
-            {
-                Armour = 120;
-                Cooldown = 35;
-            }
+            //chosen difficulty affects armor and cooldown rate of the CPU 
+            //if (ChosenDifficulty == 0)
+            //{
+            //    Armour = 0;
+            //    Cooldown = 10;
+            //}
+            //if (ChosenDifficulty == 1)
+            //{
+            //    
+            //}
+            //if (ChosenDifficulty == 2)
+            //{
+            //    Armour = 60;
+            //    Cooldown = 25;
+            //}
+            //if (ChosenDifficulty == 3)
+            //{
+            //    Armour = 90;
+            //    Cooldown = 30;
+            //}
+            //if (ChosenDifficulty == 4)
+            //{
+            //    Armour = 120;
+            //    Cooldown = 35;
+            //}
         }
 
 
@@ -118,7 +115,8 @@ namespace MechAndSandals
                     {
                         if (Heat <= 75)
                         {
-                            CastFireThrower(p);
+                            QuickAttack(p);
+                            //CastFireThrower(p);
                             possible = true;
                         }
                     }
@@ -148,38 +146,15 @@ namespace MechAndSandals
 
         public void CastCoolDown()
         {
-            if (Heat <= Cooldown)
-            {
-                Cooldown = 0;
-            }
-            else
-            {
-                Heat -= Cooldown;
-            }
+           // cast cooldown TODO
         }
+        
 
-        public void QuickAttack(Player player)
-        {
-            SelectedWeapon.QuickAttack(player);
-            Heat += 20;
-        }
+        //public void CastFireThrower(Player player)
+        //{
 
-        public void NormalAttack(Player player)
-        {
-            SelectedWeapon.NormalAttack(player);
-            Heat += 30;
-        }
-
-        public void HeavyAttack(Player player)
-        {
-            SelectedWeapon.HeavyAttack(player);
-            Heat += 45;
-        }
-
-        public void CastFireThrower(Player player)
-        {
-            FireThrower.Cast(player);
-            Heat += 20;
-        }
+        //    FireThrower.Cast(player);
+        //    Heat += 20;
+        //}
     }
 }
