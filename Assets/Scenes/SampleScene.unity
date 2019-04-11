@@ -526,7 +526,6 @@ MonoBehaviour:
   playerGameObject: {fileID: 894446581}
   AIplayerGameObject: {fileID: 774943381}
   textInfo: {fileID: 458853869}
-  endScreenGameObject: {fileID: 578937903}
   currentPlayer: {fileID: 0}
 --- !u!4 &578937907
 Transform:
@@ -640,6 +639,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c53c2efeb0b6fc4db290b91df1a7fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &774943383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 774943381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34839b55ab021704f8d460cb656850bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  runningSpeed: 3
 --- !u!1 &863028839
 GameObject:
   m_ObjectHideFlags: 0

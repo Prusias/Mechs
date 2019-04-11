@@ -8,6 +8,7 @@ public class PlayerAnimations : MonoBehaviour {
     public Animator animator;
     public float runningSpeed;
     private bool isRunningRight;
+    private bool isAttacking;
     private bool isDieing;
     private bool shouldReset;
     private bool isInAnimation;
@@ -18,7 +19,8 @@ public class PlayerAnimations : MonoBehaviour {
 	void Start () {
         animator = GetComponentInParent<Animator>();
         defaultPosition = new Vector2(this.transform.position.x, this.transform.position.y);
-        //RunRight();
+        RunRight();
+        Attack();
         //Reset();
     }
 	
@@ -48,6 +50,19 @@ public class PlayerAnimations : MonoBehaviour {
                 isInAnimation = false;
             }
         } 
+        if (isAttacking)
+        {
+            if (animationCount < 4)
+            {
+                animationCount += 10f * Time.deltaTime;
+            }
+            else
+            {
+                isAttacking = false;
+                isInAnimation = false;
+                animator.SetBool("Attack", false);
+            }
+        }
         if (!isInAnimation)
         {
             if (shouldReset)
@@ -71,6 +86,13 @@ public class PlayerAnimations : MonoBehaviour {
         isDieing = true;
         isInAnimation = true;
         animator.SetBool("Death", true);
+    }
+    public void Attack()
+    {
+        animationCount = 0;
+        isAttacking = true;
+        isInAnimation = true;
+        animator.SetBool("Attack", true);
     }
     public void Reset()
     {

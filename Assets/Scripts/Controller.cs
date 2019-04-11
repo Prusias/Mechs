@@ -11,7 +11,8 @@ namespace MechAndSandals
         public GameObject playerGameObject;
         public GameObject AIplayerGameObject;
         public GameObject textInfo;
-        public GameObject endScreenGameObject;
+        PlayerAnimations playerAnimations;
+        PlayerAnimations AIAnimations;
         Player player;
         Player AIplayer;
         public Player currentPlayer;
@@ -32,6 +33,9 @@ namespace MechAndSandals
             textInfo.GetComponent<Text>().text = "Your Turn";
             currentPlayer = player;
             HasWinner = false;
+
+            playerAnimations = playerGameObject.GetComponent<PlayerAnimations>();
+            AIAnimations = AIplayerGameObject.GetComponent<PlayerAnimations>();
         }
 
         // Update is called once per frame
@@ -128,6 +132,17 @@ namespace MechAndSandals
             {
                 HasWinner = true;
                 Winner = currentPlayer;
+               
+                if (Winner == player)
+                {
+                    playerAnimations.Die();
+                    this.GetComponent<EndscreenUI>().Display(true);
+                } else
+                {
+                    AIAnimations.Die();
+                    this.GetComponent<EndscreenUI>().Display(false);
+                }
+                
                 Debug.Log("Game has a winner");
             }
         }
