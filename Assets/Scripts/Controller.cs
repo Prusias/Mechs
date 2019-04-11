@@ -11,12 +11,13 @@ namespace MechAndSandals
         public GameObject playerGameObject;
         public GameObject AIplayerGameObject;
         public GameObject textInfo;
-        public GameObject endScreenGameObject;
+        PlayerAnimations playerAnimations;
+        PlayerAnimations AIAnimations;
         Player player;
-        AIPlayer AIplayer;
+        Player AIplayer;
         public Player currentPlayer;
         public bool HasWinner { get; set; }
-        public string Winner { get; set; }
+        public Player Winner { get; set; }
 
         // Use this for initialization
         void Start()
@@ -25,13 +26,16 @@ namespace MechAndSandals
             player = new Player(
 
             );
-            AIplayer = AIplayerGameObject.GetComponent<AIPlayer>();
-            AIplayer = new AIPlayer(
+            AIplayer = AIplayerGameObject.GetComponent<Player>();
+            AIplayer = new Player(
 
             );
             textInfo.GetComponent<Text>().text = "Your Turn";
             currentPlayer = player;
             HasWinner = false;
+
+            playerAnimations = playerGameObject.GetComponent<PlayerAnimations>();
+            AIAnimations = AIplayerGameObject.GetComponent<PlayerAnimations>();
         }
 
         // Update is called once per frame
@@ -72,6 +76,7 @@ namespace MechAndSandals
             } else if (weaponType == 2)
             {
                 player.NormalAttack(GetOpponent());
+                FindObjectOfType<AudioManager>().Play("MelePunch");
             } else if (weaponType == 3)
             {
                 player.HeavyAttack(GetOpponent());
@@ -127,7 +132,18 @@ namespace MechAndSandals
             if(GetOpponent().Health <= 0)
             {
                 HasWinner = true;
-                Winner = currentPlayer.Name;
+                Winner = currentPlayer;
+               
+                if (Winner == player)
+                {
+                    playerAnimations.Die();
+                    this.GetComponent<EndscreenUI>().Display(true);
+                } else
+                {
+                    AIAnimations.Die();
+                    this.GetComponent<EndscreenUI>().Display(false);
+                }
+                
                 Debug.Log("Game has a winner");
             }
         }

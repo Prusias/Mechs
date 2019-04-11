@@ -526,7 +526,6 @@ MonoBehaviour:
   playerGameObject: {fileID: 894446581}
   AIplayerGameObject: {fileID: 774943381}
   textInfo: {fileID: 458853869}
-  endScreenGameObject: {fileID: 578937903}
   currentPlayer: {fileID: 0}
 --- !u!4 &578937907
 Transform:
@@ -640,6 +639,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c53c2efeb0b6fc4db290b91df1a7fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &774943383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 774943381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34839b55ab021704f8d460cb656850bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  runningSpeed: 3
+  isRunningRight: 0
+  isRunningLeft: 0
+  isAttacking: 0
+  willAttack: 0
+  isDieing: 0
+  shouldReset: 0
+  isInAnimation: 1
+  animationCount: 0
 --- !u!1 &863028839
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,6 +758,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   runningSpeed: 4
+  isRunningRight: 0
+  isRunningLeft: 0
+  isAttacking: 0
+  willAttack: 0
+  isDieing: 0
+  shouldReset: 0
+  isInAnimation: 0
+  animationCount: 0
 --- !u!1 &968039864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,6 +1294,12 @@ MonoBehaviour:
   - name: Go
     clip: {fileID: 8300000, guid: 3fcc70065df472d48be49d322cb699a7, type: 3}
     volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Arena
+    clip: {fileID: 8300000, guid: a7bceece4aff51c42887b3562320f36f, type: 3}
+    volume: 0.25
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -2184,7 +2218,7 @@ Transform:
   m_GameObject: {fileID: 2009804150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 11.82}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
+  m_LocalScale: {x: 1.45, y: 1.45, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3

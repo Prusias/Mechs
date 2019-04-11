@@ -7,19 +7,20 @@ public class PlayerAnimations : MonoBehaviour {
 
     public Animator animator;
     public float runningSpeed;
-    private bool isRunningRight;
-    private bool isDieing;
-    private bool shouldReset;
-    private bool isInAnimation;
-    private float animationCount;
+    public bool isRunningRight;
+    public bool isRunningLeft;
+    public bool isAttacking;
+    public bool willAttack;
+    public bool isDieing;
+    public bool shouldReset;
+    public bool isInAnimation;
+    public float animationCount;
     private Vector2 defaultPosition;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponentInParent<Animator>();
         defaultPosition = new Vector2(this.transform.position.x, this.transform.position.y);
-        //RunRight();
-        //Reset();
     }
 	
 	// Update is called once per frame
@@ -35,6 +36,22 @@ public class PlayerAnimations : MonoBehaviour {
                 isRunningRight = false;
                 isInAnimation = false;
                 animator.SetBool("Run", false);
+                animationCount = 0;
+            }
+        }
+        if (isRunningLeft)
+        {
+            if (animationCount < 12)
+            {
+                this.transform.position = new Vector2(this.transform.position.x - runningSpeed * Time.deltaTime, this.transform.position.y);
+                animationCount += runningSpeed * Time.deltaTime;
+            }
+            else
+            {
+                isRunningLeft = false;
+                isInAnimation = false;
+                animator.SetBool("Run", false);
+                animationCount = 0;
             }
         }
         if (isDieing)
@@ -47,18 +64,58 @@ public class PlayerAnimations : MonoBehaviour {
                 isDieing = false;
                 isInAnimation = false;
             }
-        } 
+        }
+
+        if (willAttack)
+        {
+            if (isInAnimation == false)
+            {
+                animationCount += 1f * Time.deltaTime;
+                if (animationCount > 1)
+                {
+                    isAttacking = true;
+                    willAttack = false;
+                    isInAnimation = true;
+                    animator.SetBool("Attack", true);
+                }
+            }
+           
+            
+           
+            
+        }
+        if (isAttacking)
+        {
+            if (animationCount < 2)
+            {
+                animationCount += 1f * Time.deltaTime;
+            }
+            else
+            {
+                isAttacking = false;
+                isInAnimation = false;
+                animator.SetBool("Attack", false);
+            }
+        }
         if (!isInAnimation)
         {
             if (shouldReset)
             {
                 this.transform.position = defaultPosition;
                 shouldReset = false;
+                
             }
         }
 	}
 
-    public void RunRight()
+    private void RunRight()
+    {
+        animationCount = 0;
+        isRunningRight = true;
+        isInAnimation = true;
+        animator.SetBool("Run", true);
+    }
+    private void RunLeft()
     {
         animationCount = 0;
         isRunningRight = true;
@@ -71,6 +128,16 @@ public class PlayerAnimations : MonoBehaviour {
         isDieing = true;
         isInAnimation = true;
         animator.SetBool("Death", true);
+    }
+    public void AttackRight()
+    {
+        willAttack = true;
+        RunRight();
+    }
+    public void AttackLeft()
+    {
+        willAttack = true;
+        RunLeft();
     }
     public void Reset()
     {
