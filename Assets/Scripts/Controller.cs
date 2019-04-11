@@ -13,7 +13,9 @@ namespace MechAndSandals
         public GameObject textInfo;
         Player player;
         Player AIplayer;
-        public Player currentPlayer; 
+        public Player currentPlayer;
+        public bool HasWinner { get; set; }
+        public Player Winner { get; set; }
 
         // Use this for initialization
         void Start()
@@ -28,6 +30,7 @@ namespace MechAndSandals
             );
             textInfo.GetComponent<Text>().text = "Your Turn";
             currentPlayer = player;
+            HasWinner = false;
         }
 
         // Update is called once per frame
@@ -40,12 +43,28 @@ namespace MechAndSandals
 
         public void Cast(IAbility ability, Player player, bool endturn = true)
         {
+
+            if (CurrentPlayerIsOverheated())
+            {
+                currentPlayer.Heat -= 20;
+                EndTurn();
+            }
+
             ability.Cast(player);
+            currentPlayer.Heat += 25;
+            CheckForWinner();
             EndTurn();
         }
 
         public void Attack(IWeapon weapon, int weaponType, Player player, bool endturn = true)
         {
+
+            if (CurrentPlayerIsOverheated())
+            {
+                currentPlayer.Heat -= 20;
+                EndTurn();
+            }
+
             if (weaponType == 1)
             {
                 player.QuickAttack(GetOpponent());
@@ -56,6 +75,8 @@ namespace MechAndSandals
             {
                 player.HeavyAttack(GetOpponent());
             }
+
+            CheckForWinner();
             EndTurn(); 
         }
 
@@ -69,7 +90,6 @@ namespace MechAndSandals
             {
                 textInfo.GetComponent<Text>().text = "Opponents Turn";
             }
-
         }
 
         public Player GetOpponent()
@@ -80,6 +100,34 @@ namespace MechAndSandals
             } else
             {
                 return player;
+            }
+        }
+
+        public bool CurrentPlayerIsOverheated()
+        {
+            if (player.IsOverheated)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void CheckForOverheatingOpponent()
+        {
+            if (GetOpponent().Heat >= 100)
+            {
+                GetOpponent().IsOverheated = true;
+            }
+        }
+
+        public void CheckForWinner()
+        {
+            if(GetOpponent().Health <= 0)
+            {
+                HasWinner = true;
+                Winner = currentPlayer;
+                Debug.Log("Game has a winner");
             }
         }
     }
