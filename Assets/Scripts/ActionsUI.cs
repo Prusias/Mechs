@@ -106,7 +106,10 @@ public class ActionsUI : MonoBehaviour {
                 Player pl = player.GetComponent<Player>();
                 controller.Cast(ability, pl);
             }
+            if (actiontype == 5)
+            {
 
+            }
         }
 
 
