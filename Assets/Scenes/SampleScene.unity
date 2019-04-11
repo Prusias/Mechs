@@ -1297,6 +1297,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Arena
+    clip: {fileID: 8300000, guid: a7bceece4aff51c42887b3562320f36f, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &1326308119
 Transform:
   m_ObjectHideFlags: 0
