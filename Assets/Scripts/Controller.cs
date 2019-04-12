@@ -8,13 +8,14 @@ namespace MechAndSandals
     public class Controller : MonoBehaviour
 
     {
+        public EndscreenUI endscreenUI;
         public GameObject playerGameObject;
         public GameObject AIplayerGameObject;
         public GameObject textInfo;
         PlayerAnimations playerAnimations;
         PlayerAnimations AIAnimations;
         public Player player;
-        public AIPlayer AIplayer;
+        public Player AIplayer;
         public Player currentPlayer;
         public bool HasWinner { get; set; }
         public Player Winner { get; set; }
@@ -29,7 +30,7 @@ namespace MechAndSandals
         {
             player = playerGameObject.GetComponent<Player>();
             currentPlayer = player;
-            AIplayer = AIplayerGameObject.GetComponent<AIPlayer>();
+            AIplayer = AIplayerGameObject.GetComponent<Player>();
             textInfo.GetComponent<Text>().text = "Your Turn";
             
             HasWinner = false;
@@ -76,7 +77,7 @@ namespace MechAndSandals
             {
                 attackObject = new AttackObject(weapon, weaponType, player, endturn);
                 isAttacking = true;
-                currentAnimationTime = 7f;
+                currentAnimationTime = 8f;
                 
                 if (currentPlayer == player)
                 {
@@ -137,6 +138,8 @@ namespace MechAndSandals
                 else
                 {
                     textInfo.GetComponent<Text>().text = "Opponents Turn";
+                    AIPlayer pl = (AIPlayer)AIplayer;
+                    pl.GenerateAttack(player);
                 }
                 
             }
@@ -178,8 +181,15 @@ namespace MechAndSandals
             if(GetOpponent().Health <= 0)
             {
                 HasWinner = true;
-                Winner = currentPlayer;
+                if (currentPlayer == player)
+                {
+                    endscreenUI.Display(true);
+                } else
+                {
+                    endscreenUI.Display(false);
+                }
                 Debug.Log("Game has a winner");
+               
             }
         }
 

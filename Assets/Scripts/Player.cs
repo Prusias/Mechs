@@ -6,8 +6,9 @@ using MechAndSandals.Weapons;
 
 namespace MechAndSandals
 {
-    public class Player
+    public class Player : MonoBehaviour
     {
+        public Controller controller;
         public string Name { get; set; }
         public double Health { get; set; }
         //Heat represents mana, once a player overheats he cannot attack that turn

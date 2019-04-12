@@ -30,7 +30,7 @@ public class EndscreenUI : MonoBehaviour {
         }
         else
         {
-            endscreenText.GetComponent<Text>().text = "You Loose!";
+            endscreenText.GetComponent<Text>().text = "You Lose!";
         }
         endscreenText.GetComponent<Text>().enabled = true;
         endscreenButton.GetComponent<Image>().enabled = true;

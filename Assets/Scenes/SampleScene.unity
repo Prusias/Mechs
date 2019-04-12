@@ -507,11 +507,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 578937903}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c53c2efeb0b6fc4db290b91df1a7fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 578937906}
 --- !u!114 &578937906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3e57b6ee7309b4caf695c784ef57e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endscreenUI: {fileID: 578937909}
   playerGameObject: {fileID: 894446581}
   AIplayerGameObject: {fileID: 774943381}
   textInfo: {fileID: 458853869}
@@ -559,7 +561,7 @@ MonoBehaviour:
   weaponButtonParent: {fileID: 1129672399}
   player: {fileID: 894446581}
   controllerObject: {fileID: 578937903}
-  controller: {fileID: 0}
+  controller: {fileID: 578937906}
 --- !u!114 &578937909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,9 +642,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 774943381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c53c2efeb0b6fc4db290b91df1a7fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: dd55492186f9ebb4795697f87aadc229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 578937906}
+  DifficultyList:
+  - Easy
+  - Medium
+  - Hard
+  - Insane
+  - Ely
 --- !u!114 &774943383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c53c2efeb0b6fc4db290b91df1a7fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 578937906}
 --- !u!114 &894446586
 MonoBehaviour:
   m_ObjectHideFlags: 0

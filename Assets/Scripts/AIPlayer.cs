@@ -11,48 +11,48 @@ namespace MechAndSandals
         public string[] DifficultyList = { "Easy", "Medium", "Hard", "Insane", "Ely" };
         public int ChosenDifficulty { get; set; }
 
-        public AIPlayer()
+        public AIPlayer():base()
         {
-           
+            
             Name = "CPU";
         }
 
-        public AIPlayer(List<IWeapon> weaponList/*, int difficulty*/)
-        {
+        //public AIPlayer(List<IWeapon> weaponList/*, int difficulty*/)
+        //{
 
-            //ChosenDifficulty = difficulty;
-            Weapons = weaponList;
-            Name = "CPU";
-            Health = 100;
-            Heat = 0;
-            Armour = 50;
+        //    //ChosenDifficulty = difficulty;
+        //    Weapons = weaponList;
+        //    Name = "CPU";
+        //    Health = 100;
+        //    Heat = 0;
+        //    Armour = 50;
 
-            //chosen difficulty affects armor and cooldown rate of the CPU 
-            //if (ChosenDifficulty == 0)
-            //{
-            //    Armour = 0;
-            //    Cooldown = 10;
-            //}
-            //if (ChosenDifficulty == 1)
-            //{
-            //    
-            //}
-            //if (ChosenDifficulty == 2)
-            //{
-            //    Armour = 60;
-            //    Cooldown = 25;
-            //}
-            //if (ChosenDifficulty == 3)
-            //{
-            //    Armour = 90;
-            //    Cooldown = 30;
-            //}
-            //if (ChosenDifficulty == 4)
-            //{
-            //    Armour = 120;
-            //    Cooldown = 35;
-            //}
-        }
+        //    //chosen difficulty affects armor and cooldown rate of the CPU 
+        //    //if (ChosenDifficulty == 0)
+        //    //{
+        //    //    Armour = 0;
+        //    //    Cooldown = 10;
+        //    //}
+        //    //if (ChosenDifficulty == 1)
+        //    //{
+        //    //    
+        //    //}
+        //    //if (ChosenDifficulty == 2)
+        //    //{
+        //    //    Armour = 60;
+        //    //    Cooldown = 25;
+        //    //}
+        //    //if (ChosenDifficulty == 3)
+        //    //{
+        //    //    Armour = 90;
+        //    //    Cooldown = 30;
+        //    //}
+        //    //if (ChosenDifficulty == 4)
+        //    //{
+        //    //    Armour = 120;
+        //    //    Cooldown = 35;
+        //    //}
+        //}
 
 
 
@@ -91,7 +91,8 @@ namespace MechAndSandals
                     {
                         if(Heat <=55)
                         {
-                            HeavyAttack(p);
+                            controller.Attack(Weapons[0], 3, this, true);
+                           
                             possible = true;
                         }
                     }
@@ -99,7 +100,7 @@ namespace MechAndSandals
                     {
                         if (Heat <= 70)
                         {
-                            NormalAttack(p);
+                            controller.Attack(Weapons[0], 2, this, true);
                             possible = true;
                         }
                     }
@@ -107,7 +108,7 @@ namespace MechAndSandals
                     {
                         if (Heat <= 55)
                         {
-                            QuickAttack(p);
+                            controller.Attack(Weapons[0], 1, this, true);
                             possible = true;
                         }
                     }
@@ -115,7 +116,7 @@ namespace MechAndSandals
                     {
                         if (Heat <= 75)
                         {
-                            QuickAttack(p);
+                            controller.Attack(Weapons[0], 1, this, true);
                             //CastFireThrower(p);
                             possible = true;
                         }
@@ -127,15 +128,15 @@ namespace MechAndSandals
                 //choosing what attack to do based on heat that's left
                 if (Heat >= 0 && Heat <= 55)
                 {
-                    HeavyAttack(p);
+                    controller.Attack(Weapons[0], 3, this, true);
                 }
                 else if (Heat >= 0 && Heat <= 70)
                 {
-                    NormalAttack(p);
+                    controller.Attack(Weapons[0], 2, this, true);
                 }
                 else if (Heat >= 0 && Heat <= 80)
                 {
-                    QuickAttack(p);
+                    controller.Attack(Weapons[0], 1, this, true);
                 }
                 else
                 {
